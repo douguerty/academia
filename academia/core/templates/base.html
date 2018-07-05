@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Academia{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap-iso.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap-datepicker3.css' %}" type="text/css" />
+</head>
+<body>
+    
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'core/js/jquery.min.js' %}"></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'core/js/bootstrap-datepicker.min.js' %}"></script>
+</body>
+</html>

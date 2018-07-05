@@ -1,0 +1,4 @@
+[flake8]
+ignore = D106,D101,D103,D100,D105
+exclude = .git,__pycache__,migrations,__init__.py,api
+max-line-length = 120
