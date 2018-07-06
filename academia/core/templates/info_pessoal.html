@@ -11,17 +11,17 @@
         <div class="col-md-8 col-md-offset-2">
             {% for usuario in usuario %}
                 Nome
-                <input type="text" class="form-control" value="{{usuario.first_name}}">
+                <input type="text" id="nome" placeholder="Nome" class="form-control" value="{{usuario.first_name}}">
                 Sobrenome
-                <input type="text" class="form-control" value="{{usuario.last_name}}">
+                <input type="text" id="sobrenome" placeholder="Sobrenome" class="form-control" value="{{usuario.last_name}}">
                 <div class="form-group">
-                    <label for="selectGenero">Gênero</label>
-                    <select class="form-control" id="selectGenero">
-                        {% if usuario.genero == '1' %}
-                            <option value="1">Selecione</option>
+                    <label for="genero">Gênero</label>
+                    <select class="form-control" id="genero">
+                        {% if usuario.genero == '2' %}
+                            <option value="2">Selecione</option>
                             <option selected value="2">Masculino</option>
                             <option value="3">Feminino</option>
-                        {% elif usuario.genero == '2' %}
+                        {% elif usuario.genero == '3' %}
                             <option value="1">Selecione</option>
                             <option value="2">Masculino</option>
                             <option selected value="3">Feminino</option>
@@ -33,37 +33,13 @@
                     </select>
                 </div> 
                 Data de nascimento
-                <!-- Form code begins -->
-    <form method="post">
-            <div class="form-group"> <!-- Date input -->
-              <label class="control-label" for="date">Date</label>
-              <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-            </div>
-            <div class="form-group"> <!-- Submit button -->
-              <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-            </div>
-           </form>
-           <!-- Form code ends -->
-           <script>
-                $(document).ready(function(){
-                  var date_input=$('input[name="date"]'); //our date input has the name "date"
-                  var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                  var options={
-                    format: 'mm/dd/yyyy',
-                    container: container,
-                    todayHighlight: true,
-                    autoclose: true,
-                  };
-                  date_input.datepicker(options);
-                })
-            </script>
-                <input type="text" class="form-control" value="{{usuario.nascimento}}">
+                <input type="text" id="nascimento" placeholder="DD/MM/YYYY" class="form-control" value="{{usuario.nascimento}}">
                 Idade
-                <input type="text" class="form-control" value="{{usuario.idade}}">
+                <input type="text" id="idade" placeholder="Idade" class="form-control" value="{{usuario.idade}}">
                 Altura em cm
-                <input type="text" class="form-control" value="{{usuario.altura}}">
+                <input type="text" id="altura" placeholder="Altura" class="form-control" value="{{usuario.altura}}">
                 Peso em kg
-                <input type="text" class="form-control" value="{{usuario.peso}}">
+                <input type="text" id="peso" placeholder="Peso" class="form-control" value="{{usuario.peso}}">
                 IMC - Indíce de massa corporal (calculado automaticamente)
                 <input type="text" class="form-control" disabled value="{{usuario.imc}}">
             {% endfor %}
@@ -72,6 +48,29 @@
                 <button id="salvar" class="btn btn-success">Salvar</button>
             </div>
             <br>
+        </div>
+    </div>
+</div>
+
+<div id="modalInfo" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times</span>
+            </button>
+            <h3 id="modal-title" class="modal-title text-center"></h3>
+        </div>
+
+        <div id="modal-body" class="modal-body"></div>
+
+        <div class="modal-footer">
+            <button id="modal-close" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+
         </div>
     </div>
 </div>

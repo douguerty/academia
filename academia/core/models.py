@@ -46,15 +46,15 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
         blank=False,
         help_text=_('Informe seu sobrenome'),
     )
-    altura = models.DecimalField(
+    altura = models.CharField(
         verbose_name=_('Altura em cm'),
-        max_digits=5,
-        decimal_places=2,
+        max_length=6,
+        blank=True,
     )
-    peso = models.DecimalField(
+    peso = models.CharField(
         verbose_name=_('Peso em kg'),
-        max_digits=6,
-        decimal_places=3,
+        max_length=7,
+        blank=True,
     )
     imc = models.DecimalField(
         verbose_name=_('IMC - Indice de massa corporal'),

@@ -39,12 +39,45 @@ class RegistrationView(CreateView):
     template_name = "nova_conta.html"
 
 
+@csrf_exempt
 def info_pessoal(request):
     if request.user.is_authenticated:
-        usuario = utils_usuario.GetUsuario(id=request.user.pk)
-        context = {
-            'usuario': usuario
-        }
-        return render(request, 'info_pessoal.html', context)
+        if request.method == 'POST':
+            nome = request.POST.get('nome', None)
+            sobrenome = request.POST.get('sobrenome', None)
+            genero = request.POST.get('genero', None)
+            nascimento = request.POST.get('nascimento', None)
+            idade = request.POST.get('idade', None)
+            altura = request.POST.get('altura', None)
+            peso = request.POST.get('peso', None)
+            id = request.user.pk
+
+            altura = float(altura)
+            peso = float(peso)
+
+            update = utils_usuario.UpdateUsuario(id=id, nome=nome, sobrenome=sobrenome,
+                                                genero=genero, nascimento=nascimento,
+                                                idade=idade, altura=altura, peso=peso
+                                        )
+            if update:
+                retorno = {
+                    'update': True
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+            else:
+                retorno = {
+                    'update': False
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+        else:
+            usuario = utils_usuario.GetUsuario(id=request.user.pk)
+            context = {
+                'usuario': usuario
+            }
+            return render(request, 'info_pessoal.html', context)
     else:
         return HttpResponseRedirect(reverse('core:home'))

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Academia {% if user.is_authenticated %}de {{user.first_name}}{% endif %}</a>
+      <a class="navbar-brand" href="{% url 'core:home' %}">Academia {% if user.is_authenticated %}de {{user.first_name}}{% endif %}</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -16,6 +16,12 @@
             <li><a href="#">Incluir treinamento</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Relatório</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'core:logout' %}">Sair</a></li>
           </ul>
         </li>
       </ul>
