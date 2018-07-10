@@ -16,7 +16,14 @@ from .forms import CustomUserCreationForm
 
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        usuario = utils_usuario.GetUsuario(id=request.user.pk)
+        context = {
+            'usuario': usuario
+        }
+        return render(request, 'home.html', context)
+    else:
+        return render(request, 'home.html')
 
 
 def login_view(request, *args, **kwargs):
