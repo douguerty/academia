@@ -9,4 +9,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('nova_conta/', views.RegistrationView.as_view(), name='nova_conta'),
     path('info_pessoal/', views.info_pessoal, name='info_pessoal'),
+    path('exercicio/', views.exercicio, name='exercicio'),
+    path('exercicios/', views.exercicios, name='exercicios'),
+    path('exercicio/(?P<id>[0-9]+)/', views.exercicio_edit, name='exercicio_edit'),
 ]

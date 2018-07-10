@@ -77,3 +77,26 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     objects = EmailUserManager()
+
+
+class Exercicio(models.Model):
+    exercicio = models.CharField(
+        'Exercicio', max_length=150
+    )
+    musculo = models.CharField(
+        max_length=8,
+        choices=settings.MUSCULO_CHOICES,
+        default='1',
+    )
+    usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.exercicio
+
+    def __repr__(self):
+        return self.exercicio
+
+    class Meta:
+        ordering = ['exercicio']
+        verbose_name = 'Exercicio'
+        verbose_name_plural = 'Exercicios'

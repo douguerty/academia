@@ -1,6 +1,7 @@
 import re
 import json
 from . import models
+from . import forms
 from datetime import date, datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, reverse
@@ -11,6 +12,7 @@ from django.contrib.auth.views import login
 from django.contrib.auth.views import logout
 from django.urls import reverse_lazy, reverse
 from .utils import usuario as utils_usuario
+from .utils import exercicio as utils_exercicio
 
 from .forms import CustomUserCreationForm
 
@@ -86,5 +88,53 @@ def info_pessoal(request):
                 'usuario': usuario
             }
             return render(request, 'info_pessoal.html', context)
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def exercicio(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = forms.ExercicioForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.usuario = request.user
+                form.save()
+                return HttpResponseRedirect(reverse('core:home'))
+        else:
+            form = forms.ExercicioForm()
+        return render(request, 'exercicio.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def exercicios(request):
+    if request.user.is_authenticated:
+        exercicios = utils_exercicio.GetExercicio(usuario=request.user)
+        if exercicios:
+            context = {
+                'exercicios': exercicios
+            }
+            return render(request, 'exercicios.html', context)
+        else:
+            return render(request, 'exercicios.html')
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def exercicio_edit(request, id=None):
+    if request.user.is_authenticated:
+        exercicio = models.Exercicio.objects.get(pk=id)
+        if request.method == 'POST':
+            form = forms.ExercicioForm(request.POST, instance=exercicio)
+
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('core:exercicios'))
+            
+        else:
+            form = forms.ExercicioForm(instance=exercicio)
+
+        return render(request, 'exercicio_edit.html', {'form': form})
     else:
         return HttpResponseRedirect(reverse('core:home'))

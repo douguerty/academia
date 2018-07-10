@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Exercícios{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading" align="center">
+                <h5>Exercicios cadastrados</h5>
+            </div>
+            {% if exercicios %}
+                <table class="table">
+                    <tr>
+                        <th>Exercicio</th>
+                        <th>Musculo</th>
+                        <th>Editar</th>
+                    </tr>
+                    {% for exercicio in exercicios %}
+                    <tr>
+                        <td>{{ exercicio.exercicio }}</td>
+                        {% if exercicio.musculo == '1'  %}
+                            <td>Abdome</td>
+                        {% elif exercicio.musculo == '2'  %}
+                            <td>Bíceps</td>
+                        {% elif exercicio.musculo == '3'  %}
+                            <td>Costas</td>
+                        {% elif exercicio.musculo == '4'  %}
+                            <td>Peito</td>
+                        {% elif exercicio.musculo == '5'  %}
+                            <td>Pernas</td>
+                        {% elif exercicio.musculo == '6'  %}
+                            <td>Tríceps</td>
+                        {% elif exercicio.musculo == '7'  %}
+                            <td>Ombros</td>
+                        {% elif exercicio.musculo == '8'  %}
+                            <td>Nádegas</td>
+                        {% endif %}
+                        <td><a class="btn btn-sm btn-warning" href="{% url 'core:exercicio_edit' exercicio.pk %}"><i class="fa fa-pencil"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="panel-body" align="center">
+                    <h6>Nenhum exercicio cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fa fa-plus"></i></a></h6>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

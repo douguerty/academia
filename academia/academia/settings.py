@@ -127,3 +127,14 @@ GENERO_CHOICES = (
     (u'2', 'Masculino'),
     (u'3', 'Feminino'),
 )
+
+MUSCULO_CHOICES = (
+    (u'1', 'Abdome'),
+    (u'2', 'Bíceps'),
+    (u'3', 'Costas'),
+    (u'4', 'Peito'),
+    (u'5', 'Pernas'),
+    (u'6', 'Tríceps'),
+    (u'7', 'Ombros'),
+    (u'8', 'Nádegas'),
+)
