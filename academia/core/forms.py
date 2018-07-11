@@ -74,6 +74,21 @@ class ExercicioForm(forms.ModelForm):
 
 
 class TreinamentoForm(forms.ModelForm):
+    def __init__(self, usuario, *args, **kwargs):
+        super(TreinamentoForm, self).__init__(*args, **kwargs)
+        self.usuario = usuario
+        self.fields['exercicio'].queryset = Exercicio.objects.filter(usuario=self.usuario)
+
+    def save(self, commit=True):
+        registro = super(TreinamentoForm, self).save(commit=False)
+        registro.usuario = self.usuario
+
+        if commit:
+            registro.save()
+        
+        return registro
+
+
     exercicio = forms.ModelChoiceField(queryset=Exercicio.objects.all(),
         label='',
         widget=forms.Select(

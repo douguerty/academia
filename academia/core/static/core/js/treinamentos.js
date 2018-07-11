@@ -40,6 +40,21 @@ $("#btn-sim").on({
                 $("#modal-body").append(
                     'Treinamento excluído com sucesso'
                 );
+            },
+            error: function(data) {
+                $("#modal-title").empty();
+                $("#modal-body").empty();
+                $("#btn-nao").empty();
+                $("#btn-sim").hide();
+                $("#btn-nao").append(
+                    "<i class='fa fa-times' aria-hidden='true'></i>"
+                );
+                $("#modal-title").append(
+                    'Erro'
+                );
+                $("#modal-body").append(
+                    'Erro ao excluir treinamento'
+                );
             }
         });
     }

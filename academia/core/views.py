@@ -41,7 +41,7 @@ def home(request):
                 else:
                     acima_do_minimo = False
                     agua = u.agua
-                    percentual = 100
+                    percentual = 0
                     context = {
                         'usuario': usuario, 'agua': agua,
                         'acima_do_minimo': acima_do_minimo,
@@ -171,14 +171,13 @@ def exercicio_edit(request, id=None):
 def treinamento(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = forms.TreinamentoForm(request.POST)
+            form = forms.TreinamentoForm(request.user, request.POST)
             if form.is_valid:
-                form = form.save(commit=False)
-                form.usuario = request.user
+                form = form.save()
                 form.save()
                 return HttpResponseRedirect(reverse('core:treinamentos'))
         else:
-            form = forms.TreinamentoForm()
+            form = forms.TreinamentoForm(request.user)
         return render(request, 'treinamento.html', {'form': form})
     else:
         return HttpResponseRedirect(reverse('core:home'))
