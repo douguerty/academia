@@ -78,7 +78,7 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a class="btn btn-sm btn-primary" href="{% url 'core:treinamento_edit' treinamento.pk %}"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-sm btn-danger" href="{% url 'core:treinamento_edit' treinamento.pk %}"><i class="fa fa-trash"></i></a>
+                                <a class="btn-delete btn btn-sm btn-danger" value="{{ treinamento.pk }}"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>

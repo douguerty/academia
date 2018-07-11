@@ -22,16 +22,29 @@ def home(request):
     if request.user.is_authenticated:
         usuario = utils_usuario.GetUsuario(id=request.user.pk)
         for u in usuario:
-            if float(u.agua) < float(u.consumo_agua):
-                agua = float(u.consumo_agua) - float(u.agua)
-                acima_do_minimo = True
+            if u.agua is not None:
+                if u.consumo_agua is not None:
+                    if float(u.agua) < float(u.consumo_agua):
+                        agua = float(u.consumo_agua) - float(u.agua)
+                        acima_do_minimo = True
+                    else:
+                        agua = float(u.agua) - float(u.consumo_agua)
+                        acima_do_minimo = False
+                    context = {
+                        'usuario': usuario, 'agua': agua,
+                        'acima_do_minimo': acima_do_minimo
+                    }
+                else:
+                    acima_do_minimo = False
+                    agua = u.agua
+                    context = {
+                        'usuario': usuario, 'agua': agua,
+                        'acima_do_minimo': acima_do_minimo
+                    }
             else:
-                agua = float(u.agua) - float(u.consumo_agua)
-                acima_do_minimo = False
-        context = {
-            'usuario': usuario, 'agua': agua,
-            'acima_do_minimo': acima_do_minimo
-        }
+                context = {
+                    'usuario': usuario
+                }
         return render(request, 'home.html', context)
     else:
         return render(request, 'home.html')

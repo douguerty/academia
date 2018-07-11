@@ -29,7 +29,11 @@ def ConsumoAgua(id, consumo_agua):
     if id is not None:
         usuario = MyUser.objects.filter(pk=id)
         for u in usuario:
-            consumo_agua_atual = float(u.consumo_agua) + float(consumo_agua)
+            if u.consumo_agua is not None:
+                consumo_agua_atual = float(u.consumo_agua) + float(consumo_agua)
+            else:
+                consumo_agua_atual = float(consumo_agua)
+
         usuario.update(consumo_agua=consumo_agua_atual)
 
         return True

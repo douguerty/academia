@@ -1,6 +1,5 @@
 $("#salvar").on({
     click: function() {
-        console.log("Clicou");
         var nome = $("#nome").val();
         var sobrenome = $("#sobrenome").val();
         var genero = $("#genero").val();

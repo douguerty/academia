@@ -10,42 +10,52 @@
     <div class="jumbotron">
         <p>Seja bem vindo {% if user.is_authenticated %}{{ user.first_name }}{% else %}usuário anônimo{% endif %}</p>
         {% for usuario in usuario %}
-            {% if usuario.imc < 18.5 %}
-                <p align="center">IMC {{usuario.imc}} - Abaixo do peso</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-warning" style="width: 10%"></div>
-                </div>
-            {% elif usuario.imc >= 18.6 and usuario.imc <= 24.9 %}
-                <p align="center">IMC {{usuario.imc}} - Peso ideal</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 100%"></div>
-                </div>
-            {% elif usuario.imc >= 25.0 and usuario.imc <= 29.9 %}
-                <p align="center">IMC {{usuario.imc}} - Levemente acima do peso</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 70%"></div>
-                </div>
-            {% elif usuario.imc >= 30.0 and usuario.imc <= 34.9 %}
-                <p align="center">IMC {{usuario.imc}} - Obesidade grau 1</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 80%"></div>
-                </div>
-            {% elif usuario.imc >= 35.0 and usuario.imc <= 39.9 %}
-                <p align="center">IMC {{usuario.imc}} - Obesidade grau 2 (severa)</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 90%"></div>
-                </div>
+            {% if usuario.imc is not None %}
+                {% if usuario.imc < 18.5 %}
+                    <p align="center">IMC {{usuario.imc}} - Abaixo do peso</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" style="width: 10%"></div>
+                    </div>
+                {% elif usuario.imc >= 18.6 and usuario.imc <= 24.9 %}
+                    <p align="center">IMC {{usuario.imc}} - Peso ideal</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 100%"></div>
+                    </div>
+                {% elif usuario.imc >= 25.0 and usuario.imc <= 29.9 %}
+                    <p align="center">IMC {{usuario.imc}} - Levemente acima do peso</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 70%"></div>
+                    </div>
+                {% elif usuario.imc >= 30.0 and usuario.imc <= 34.9 %}
+                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 1</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 80%"></div>
+                    </div>
+                {% elif usuario.imc >= 35.0 and usuario.imc <= 39.9 %}
+                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 2 (severa)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 90%"></div>
+                    </div>
+                {% else %}
+                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 3 (mórbida)</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 100%"></div>
+                    </div>
+                {% endif %}
             {% else %}
-                <p align="center">IMC {{usuario.imc}} - Obesidade grau 3 (mórbida)</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 100%"></div>
-                </div>
+            <p align="center">Acesse para concluir seu cadastro <a class="btn btn-sm" href="{% url 'core:info_pessoal' %}"><i class="fa fa-share"></i></a></p> 
             {% endif %}
-            <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
-            {% if acima_do_minimo == False %}
-                <p>Consumido hoje {{ usuario.consumo_agua }} ml, resta {{ agua }} ml <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
-            {% else %}
-                <p>Consumido hoje {{ usuario.consumo_agua }} ml, você ja consumiu {{ agua }} ml acima do minimo necessário <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-success"><i class="fa fa-tint"></i></a></p>
+            {% if usuario.agua is not None %}
+                <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
+                {% if acima_do_minimo == False %}
+                    {% if usuario.agua == usuario.consumo_agua %}
+                        <p>Parabéns! Você ja consumiu o minimo de água necessário hoje. <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
+                    {% else %}
+                        <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, resta {{ agua }} ml <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
+                    {% endif %}
+                {% else %}
+                    <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, você ja consumiu {{ agua }} ml acima do minimo necessário hoje <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-success"><i class="fa fa-tint"></i></a></p>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>
