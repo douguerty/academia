@@ -63,6 +63,18 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
         blank=True,
         null=True,
     )
+    agua = models.CharField(
+        verbose_name=_('Quantidade minima de consumo de água por dia'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    consumo_agua = models.CharField(
+        verbose_name=_('Consumo de água hoje'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
     nascimento = models.CharField(
         verbose_name=_('Data de nascimento'),
         max_length=10,
@@ -116,23 +128,27 @@ class Registro(models.Model):
         verbose_name=_('Quantidade de series'),
         blank=True,
         null=True,
+        default='-',
     )
     repeticao = models.IntegerField(
         verbose_name=_('Repetições por series'),
         blank=True,
         null=True,
+        default='-',
     )
     tempo = models.CharField(
         verbose_name=_('Tempo gasto no exercicio'),
         max_length=10,
         blank=True,
         null=True,
+        default='-',
     )
     distancia = models.CharField(
         verbose_name=_('Distancia percorrida'),
         max_length=10,
         blank=True,
         null=True,
+        default='-',
     )
     peso = models.DecimalField(
         verbose_name=_('Peso em kg'),
@@ -140,6 +156,7 @@ class Registro(models.Model):
         decimal_places=3,
         blank=True,
         null=True,
+        default='-',
     )
 
     usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)

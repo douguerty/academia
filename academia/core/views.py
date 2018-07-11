@@ -13,6 +13,7 @@ from django.contrib.auth.views import logout
 from django.urls import reverse_lazy, reverse
 from .utils import usuario as utils_usuario
 from .utils import exercicio as utils_exercicio
+from .utils import treinamento as utils_treinamento
 
 from .forms import CustomUserCreationForm
 
@@ -20,8 +21,16 @@ from .forms import CustomUserCreationForm
 def home(request):
     if request.user.is_authenticated:
         usuario = utils_usuario.GetUsuario(id=request.user.pk)
+        for u in usuario:
+            if float(u.agua) < float(u.consumo_agua):
+                agua = float(u.consumo_agua) - float(u.agua)
+                acima_do_minimo = True
+            else:
+                agua = float(u.agua) - float(u.consumo_agua)
+                acima_do_minimo = False
         context = {
-            'usuario': usuario
+            'usuario': usuario, 'agua': agua,
+            'acima_do_minimo': acima_do_minimo
         }
         return render(request, 'home.html', context)
     else:
@@ -100,7 +109,7 @@ def exercicio(request):
                 form = form.save(commit=False)
                 form.usuario = request.user
                 form.save()
-                return HttpResponseRedirect(reverse('core:home'))
+                return HttpResponseRedirect(reverse('core:exercicios'))
         else:
             form = forms.ExercicioForm()
         return render(request, 'exercicio.html', {'form': form})
@@ -135,6 +144,69 @@ def exercicio_edit(request, id=None):
         else:
             form = forms.ExercicioForm(instance=exercicio)
 
-        return render(request, 'exercicio_edit.html', {'form': form})
+        return render(request, 'exercicio.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def treinamento(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = forms.TreinamentoForm(request.POST)
+            if form.is_valid:
+                form = form.save(commit=False)
+                form.usuario = request.user
+                form.save()
+                return HttpResponseRedirect(reverse('core:treinamentos'))
+        else:
+            form = forms.TreinamentoForm()
+        return render(request, 'treinamento.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def treinamentos(request):
+    if request.user.is_authenticated:
+        treinamentos = utils_treinamento.GetTreinamento(usuario=request.user)
+        if treinamentos:
+            context = {
+                'treinamentos': treinamentos
+            }
+            return render(request, 'treinamentos.html', context)
+        else:
+            return render(request, 'treinamentos.html')
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def treinamento_edit(request, id=None):
+    if request.user.is_authenticated:
+        treinamento = models.Registro.objects.get(pk=id)
+        if request.method == 'POST':
+            form = forms.TreinamentoForm(request.POST, instance=treinamento)
+
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('core:treinamentos'))
+            
+        else:
+            form = forms.TreinamentoForm(instance=treinamento)
+
+        return render(request, 'treinamento.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def consumo_agua(request):
+    if request.user.is_authenticated:
+        form = forms.AguaForm()
+        if request.method == 'POST':
+            consumo_agua = request.POST.get('consumo_agua', None)
+            if form.is_valid:
+                update = utils_usuario.ConsumoAgua(id=request.user.pk, consumo_agua=consumo_agua)
+                if update:
+                   return HttpResponseRedirect(reverse('core:home')) 
+
+        return render(request, 'consumo_agua.html', {'form': form})
     else:
         return HttpResponseRedirect(reverse('core:home'))

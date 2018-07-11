@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import MyUser, Exercicio
+from .models import MyUser, Exercicio, Registro
 from django.conf import settings
 from academia.settings import BASE_DIR
 
@@ -62,7 +62,7 @@ class ExercicioForm(forms.ModelForm):
     musculo = forms.ChoiceField(
         choices=settings.MUSCULO_CHOICES,
         widget=forms.Select(
-            attrs= {
+            attrs={
                 'class': 'form-control'
             }
         )
@@ -71,3 +71,78 @@ class ExercicioForm(forms.ModelForm):
     class Meta:
         model = Exercicio
         fields = ['exercicio', 'musculo']
+
+
+class TreinamentoForm(forms.ModelForm):
+    exercicio = forms.ModelChoiceField(queryset=Exercicio.objects.all(),
+        label='',
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
+
+    series = forms.IntegerField(required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Séries'
+            }
+        )
+    )
+
+    repeticao = forms.IntegerField(required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Repetições por série'
+            }
+        )
+    )
+
+    tempo = forms.CharField(required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Tempo gasto por série'
+            }
+        )
+    )
+
+    distancia = forms.CharField(required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Distancia percorrida em KM'
+            }
+        )
+    )
+
+    peso = forms.CharField(required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Carga em KG usado no exercicio'
+            }
+        )
+    )
+
+    class Meta:
+        model = Registro
+        fields = ['exercicio', 'series', 'repeticao', 'tempo', 'distancia', 'peso']
+
+    
+class AguaForm(forms.ModelForm):
+    consumo_agua = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control', 'placeholder': 'Consumo de água (em ML)'
+            }
+        )
+    )
+
+    class Meta:
+        model = MyUser
+        fields = ['consumo_agua']

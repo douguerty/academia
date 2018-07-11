@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
 {% include "navbar.html" %}
-<div class="col-md-4 col-md-offset-4" align="center">
+<div class="col-md-8 col-md-offset-2" align="center">
     <div class="jumbotron">
         <p>Seja bem vindo {% if user.is_authenticated %}{{ user.first_name }}{% else %}usuário anônimo{% endif %}</p>
         {% for usuario in usuario %}
@@ -40,6 +40,12 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 100%"></div>
                 </div>
+            {% endif %}
+            <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
+            {% if acima_do_minimo == False %}
+                <p>Consumido hoje {{ usuario.consumo_agua }} ml, resta {{ agua }} ml <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
+            {% else %}
+                <p>Consumido hoje {{ usuario.consumo_agua }} ml, você ja consumiu {{ agua }} ml acima do minimo necessário <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-success"><i class="fa fa-tint"></i></a></p>
             {% endif %}
         {% endfor %}
     </div>

@@ -42,6 +42,14 @@
                 <input type="text" id="peso" placeholder="Peso" class="form-control" value="{{usuario.peso}}">
                 IMC - Indíce de massa corporal (calculado automaticamente)
                 <input type="text" class="form-control" disabled value="{{usuario.imc}}">
+                Quantidade minima de consumo de água por dia (em ML)
+                <input type="text" class="form-control" disabled value="{{usuario.agua}}">
+                Consumo de água hoje (em ML)
+                {% if usuario.consumo_agua is None %}
+                    <input type="text" class="form-control" disabled value="0">
+                {% else %}
+                    <input type="text" class="form-control" disabled value="{{usuario.consumo_agua}}">
+                {% endif %}
             {% endfor %}
             <br>
             <div align="center">
