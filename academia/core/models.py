@@ -104,3 +104,47 @@ class Exercicio(models.Model):
         ordering = ['exercicio']
         verbose_name = 'Exercicio'
         verbose_name_plural = 'Exercicios'
+
+
+class Registro(models.Model):
+    exercicio = models.ForeignKey(
+        Exercicio,
+        on_delete=models.CASCADE,
+        verbose_name=_('Exercício'),
+    )
+    series = models.IntegerField(
+        verbose_name=_('Quantidade de series'),
+        blank=True,
+        null=True,
+    )
+    repeticao = models.IntegerField(
+        verbose_name=_('Repetições por series'),
+        blank=True,
+        null=True,
+    )
+    tempo = models.CharField(
+        verbose_name=_('Tempo gasto no exercicio'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    distancia = models.CharField(
+        verbose_name=_('Distancia percorrida'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    peso = models.DecimalField(
+        verbose_name=_('Peso em kg'),
+        max_digits=7,
+        decimal_places=3,
+        blank=True,
+        null=True,
+    )
+
+    usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['exercicio']
+        verbose_name = 'Exercicio'
+        verbose_name_plural = 'Exercicios'

@@ -9,6 +9,7 @@ static_old/
 *.sqlite3
 *.bkp
 *.old
+academia/core/migrations/*
 */migrations/*
 */migrations/!__init__.py
 
