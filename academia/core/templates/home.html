@@ -43,19 +43,33 @@
                     </div>
                 {% endif %}
             {% else %}
-            <p align="center">Acesse para concluir seu cadastro <a class="btn btn-sm" href="{% url 'core:info_pessoal' %}"><i class="fa fa-share"></i></a></p> 
+                <p align="center">Acesse para concluir seu cadastro <a class="btn btn-sm" href="{% url 'core:info_pessoal' %}"><i class="fa fa-share"></i></a></p> 
             {% endif %}
             {% if usuario.agua is not None %}
                 <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
                 {% if acima_do_minimo == False %}
                     {% if usuario.agua == usuario.consumo_agua %}
-                        <p>Parabéns! Você ja consumiu o minimo de água necessário hoje. <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
+                        <p>Parabéns! Você ja consumiu o minimo de água necessário hoje. <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fa fa-tint"></i></a></p>
                     {% else %}
                         <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, resta {{ agua }} ml <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
                     {% endif %}
                 {% else %}
-                    <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, você ja consumiu {{ agua }} ml acima do minimo necessário hoje <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-success"><i class="fa fa-tint"></i></a></p>
+                    <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, você ja consumiu {{ agua }} ml acima do minimo necessário hoje <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fa fa-tint"></i></a></p>
                 {% endif %}
+                {% if percentual < 40 %}
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: {{percentual}}%"></div>
+                    </div>
+                {% elif percentual > 40 and percentual < 65 %}
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{percentual}}%"></div>
+                    </div>
+                {% else %}
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" style="width: {{percentual}}%"></div>
+                    </div>
+                {% endif %}
+                <p>{{ percentual }}% <i class="fa fa-tint"></i></p>
             {% endif %}
         {% endfor %}
     </div>

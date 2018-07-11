@@ -27,19 +27,25 @@ def home(request):
                     if float(u.agua) < float(u.consumo_agua):
                         agua = float(u.consumo_agua) - float(u.agua)
                         acima_do_minimo = True
+                        percentual = 100
                     else:
                         agua = float(u.agua) - float(u.consumo_agua)
                         acima_do_minimo = False
+                        percentual = int(round((float(u.consumo_agua) / float(u.agua)) * 100, 0))
+
                     context = {
                         'usuario': usuario, 'agua': agua,
-                        'acima_do_minimo': acima_do_minimo
+                        'acima_do_minimo': acima_do_minimo,
+                        'percentual': percentual
                     }
                 else:
                     acima_do_minimo = False
                     agua = u.agua
+                    percentual = 100
                     context = {
                         'usuario': usuario, 'agua': agua,
-                        'acima_do_minimo': acima_do_minimo
+                        'acima_do_minimo': acima_do_minimo,
+                        'percentual': percentual
                     }
             else:
                 context = {
@@ -209,6 +215,34 @@ def treinamento_edit(request, id=None):
     else:
         return HttpResponseRedirect(reverse('core:home'))
 
+
+@csrf_exempt
+def treinamento_delete(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            id_treinamento = request.POST.get('id', None)
+            usuario = request.user
+
+            delete = utils_treinamento.DeleteTreinamento(
+                                id_treinamento=id_treinamento, usuario=usuario
+                            )
+            if delete:
+                retorno = {
+                    'delete': True
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+            else:
+                retorno = {
+                    'delete': False
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+    
 
 def consumo_agua(request):
     if request.user.is_authenticated:

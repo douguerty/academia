@@ -8,3 +8,9 @@ def GetTreinamento(usuario):
         return treinamentos
     else:
         return False
+
+
+def DeleteTreinamento(id_treinamento, usuario):
+    treinamento = Registro.objects.filter(pk=id_treinamento, usuario=usuario)
+    treinamento.delete()
+    return True

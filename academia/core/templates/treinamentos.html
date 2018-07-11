@@ -10,7 +10,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading" align="center">
-                <h5>Treinamentos</h5>
+                <h5>Treinamentos {% if treinamentos %}<a class="btn btn-sm btn-success" href="{% url 'core:treinamento' %}"><i class="fa fa-plus"></i></a>{% endif %}</h5>
             </div>
             {% if treinamentos %}
                 <table class="table">
@@ -78,7 +78,7 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a class="btn btn-sm btn-primary" href="{% url 'core:treinamento_edit' treinamento.pk %}"><i class="fa fa-pencil"></i></a>
-                                <a class="btn-delete btn btn-sm btn-danger" value="{{ treinamento.pk }}"><i class="fa fa-trash"></i></a>
+                                <a class="btn-delete btn btn-sm btn-danger" name="{{ treinamento.id }}"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -86,7 +86,7 @@
                 </table>
             {% else %}
                 <div class="panel-body" align="center">
-                    <h6>Nenhum exercicio cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:treinamento' %}"><i class="fa fa-plus"></i></a></h6>
+                    <h6>Nenhum treinamento cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:treinamento' %}"><i class="fa fa-plus"></i></a></h6>
                 </div>
             {% endif %}
         </div>
@@ -104,11 +104,14 @@
             <h3 id="modal-title" class="modal-title text-center"></h3>
         </div>
 
-        <div id="modal-body" class="modal-body"></div>
+        <div id="modal-body" class="modal-body" align="center"></div>
+        <input type="hidden" id="id-treinamento" />
 
         <div class="modal-footer">
-            <button id="modal-close" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
-            <i class="fa fa-times" aria-hidden="true"></i>
+            <button id="btn-nao" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+            </button>
+            <button id="btn-sim" type="button" class="btn btn-sm btn-success">
+                <i class="fa fa-check" aria-hidden="true"></i> Sim
             </button>
         </div>
 
