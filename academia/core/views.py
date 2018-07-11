@@ -20,6 +20,10 @@ from .forms import CustomUserCreationForm
 
 def home(request):
     if request.user.is_authenticated:
+        d1 = datetime.strptime('2018-07-09', '%Y-%m-%d')
+        d2 = datetime.now()
+        dia = abs(d1-d2).days
+        print(dia)
         usuario = utils_usuario.GetUsuario(id=request.user.pk)
         for u in usuario:
             if u.agua is not None:

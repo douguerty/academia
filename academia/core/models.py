@@ -165,3 +165,27 @@ class Registro(models.Model):
         ordering = ['exercicio']
         verbose_name = 'Exercicio'
         verbose_name_plural = 'Exercicios'
+
+
+class LogAgua(models.Model):
+    consumo_agua = models.CharField(
+        verbose_name=_('Consumo de água em ml'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+
+    data = models.DateTimeField(auto_now_add=True)
+
+    usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.consumo_agua
+
+    def __repr__(self):
+        return self.consumo_agua
+
+    class Meta:
+        ordering = ['data']
+        verbose_name = 'Log consumo de agua'
+        verbose_name_plural = 'Logs consumo de agua'
