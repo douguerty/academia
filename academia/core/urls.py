@@ -11,5 +11,5 @@ urlpatterns = [
     path('info_pessoal/', views.info_pessoal, name='info_pessoal'),
     path('exercicio/', views.exercicio, name='exercicio'),
     path('exercicios/', views.exercicios, name='exercicios'),
-    path('exercicio/(?P<id>[0-9]+)/', views.exercicio_edit, name='exercicio_edit'),
+    path('exercicio/<int:id>/', views.exercicio_edit, name='exercicio_edit'),
 ]

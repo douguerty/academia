@@ -60,6 +60,8 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
         verbose_name=_('IMC - Indice de massa corporal'),
         max_digits=5,
         decimal_places=3,
+        blank=True,
+        null=True,
     )
     nascimento = models.CharField(
         verbose_name=_('Data de nascimento'),
@@ -67,6 +69,8 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     )
     idade = models.IntegerField(
         verbose_name=_('Idade'),
+        blank=True,
+        null=True,
     )
     genero = models.CharField(
         max_length=3,

@@ -137,4 +137,5 @@ MUSCULO_CHOICES = (
     (u'6', 'Tríceps'),
     (u'7', 'Ombros'),
     (u'8', 'Nádegas'),
+    (u'9', 'Antebraço'),
 )

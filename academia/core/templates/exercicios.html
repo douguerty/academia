@@ -38,6 +38,8 @@
                             <td>Ombros</td>
                         {% elif exercicio.musculo == '8'  %}
                             <td>Nádegas</td>
+                        {% elif exercicio.musculo == '9' %}
+                            <td>Antebraço</td>
                         {% endif %}
                         <td><a class="btn btn-sm btn-warning" href="{% url 'core:exercicio_edit' exercicio.pk %}"><i class="fa fa-pencil"></i></a></td>
                     </tr>
