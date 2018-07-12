@@ -40,7 +40,7 @@ def home(request):
         diferenca_peso = 0
         peso_abaixo = 0
         for u in usuario:
-            if u.imc != imc_ideal:
+            if u.imc is not None and u.imc != imc_ideal:
                 peso_ideal = round(imc_ideal * ((float(u.altura)/100)*(float(u.altura)/100)), 3)
                 if peso_ideal > float(u.peso):
                     diferenca_peso = round(peso_ideal - float(u.peso), 3)

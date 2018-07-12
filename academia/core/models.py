@@ -180,13 +180,13 @@ class LogAgua(models.Model):
     usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.consumo_agua
+        return self.usuario.first_name
 
     def __repr__(self):
-        return self.consumo_agua
+        return self.usuario.first_name
 
     class Meta:
-        ordering = ['data']
+        ordering = ['id']
         verbose_name = 'Log consumo de agua'
         verbose_name_plural = 'Logs consumo de agua'
 
@@ -204,10 +204,10 @@ class LogAguaDiario(models.Model):
     usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.consumo_agua_dia
+        return self.usuario.first_name
 
     def __repr__(self):
-        return self.consumo_agua_dia
+        return self.usuario.first_name
 
     class Meta:
         ordering = ['id']

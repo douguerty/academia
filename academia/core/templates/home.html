@@ -56,7 +56,7 @@
                 {% if consumo_diario == False %}
                     Sem registros (valor referente ao último dia em que houve registros)
                 {% else %}
-                    Último consumo {{ consumo_diario }} ml (valor referente ao último dia em que houve registros)
+                    Último consumo diário: {{ consumo_diario }} ml (valor referente ao último dia em que houve registros)
                 {% endif %}
                 {% if acima_do_minimo == False %}
                     {% if usuario.agua == usuario.consumo_agua %}
