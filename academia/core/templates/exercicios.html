@@ -10,7 +10,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading" align="center">
-                <h5>Exercicios cadastrados</h5>
+                <h5>Exercicios cadastrados {% if exercicios %}<a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fa fa-plus"></i></a>{% endif %}</h5>
             </div>
             {% if exercicios %}
                 <table class="table">
