@@ -1,5 +1,6 @@
 from core.models import MyUser, LogAgua
 from django.http import HttpResponse
+from datetime import date, datetime, timedelta
 import json
 
 def GetUsuario(id):
@@ -28,8 +29,9 @@ def UpdateUsuario(id=None, nome=None, sobrenome=None, genero=None, nascimento=No
 def ConsumoAgua(id, consumo_agua):
     if id is not None:
         usuario = MyUser.objects.filter(pk=id)
-        log = LogAgua.objects.all()
-        print(log)
+        user = MyUser.objects.get(pk=id)
+        log = LogAgua(consumo_agua=consumo_agua, usuario=user, data=datetime.now())
+        log.save()
         for u in usuario:
             if u.consumo_agua is not None:
                 consumo_agua_atual = float(u.consumo_agua) + float(consumo_agua)

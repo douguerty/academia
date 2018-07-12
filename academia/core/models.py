@@ -175,7 +175,7 @@ class LogAgua(models.Model):
         null=True,
     )
 
-    data = models.DateTimeField(auto_now_add=True)
+    data = models.DateTimeField()
 
     usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 

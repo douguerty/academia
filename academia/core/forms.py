@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import MyUser, Exercicio, Registro
+from .models import MyUser, Exercicio, Registro, LogAgua
 from django.conf import settings
 from academia.settings import BASE_DIR
 
