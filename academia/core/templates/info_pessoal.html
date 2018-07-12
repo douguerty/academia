@@ -35,7 +35,11 @@
                 Data de nascimento
                 <input type="text" id="nascimento" placeholder="DD/MM/YYYY" class="form-control" value="{{usuario.nascimento}}">
                 Idade
-                <input type="text" id="idade" placeholder="Idade" class="form-control" value="{{usuario.idade}}">
+                {% if usuario.idade is None %}
+                    <input type="text" id="idade" placeholder="Idade" class="form-control" value="">
+                {% else %}
+                    <input type="text" id="idade" placeholder="Idade" class="form-control" value="{{usuario.idade}}">
+                {% endif %}
                 Altura em cm
                 <input type="text" id="altura" placeholder="Altura" class="form-control" value="{{usuario.altura}}">
                 Peso em kg

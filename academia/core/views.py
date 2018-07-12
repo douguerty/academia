@@ -20,6 +20,7 @@ from .forms import CustomUserCreationForm
 
 def home(request):
     if request.user.is_authenticated:
+        imc_ideal = 21.75
         ultima_data = utils_usuario.GetUltimoLogAgua(id=request.user.pk)
         hoje = datetime.now()
         consumo_diario = 0
@@ -32,10 +33,22 @@ def home(request):
         if consumo_agua_diario:
             consumo_diario = consumo_agua_diario
         else:
-            consumo_diario = 'Sem consumo anterior'
+            consumo_diario = False
 
         usuario = utils_usuario.GetUsuario(id=request.user.pk)
+        peso_ideal = 0
+        diferenca_peso = 0
+        peso_abaixo = 0
         for u in usuario:
+            if u.imc != imc_ideal:
+                peso_ideal = round(imc_ideal * ((float(u.altura)/100)*(float(u.altura)/100)), 3)
+                if peso_ideal > float(u.peso):
+                    diferenca_peso = round(peso_ideal - float(u.peso), 3)
+                    peso_abaixo = True
+                else:
+                    diferenca_peso = round(float(u.peso) - peso_ideal, 3)
+                    peso_abaixo = False
+
             if u.agua is not None:
                 if u.consumo_agua is not None:
                     if float(u.agua) < float(u.consumo_agua):
@@ -50,7 +63,9 @@ def home(request):
                     context = {
                         'usuario': usuario, 'agua': agua,
                         'acima_do_minimo': acima_do_minimo,
-                        'percentual': percentual, 'consumo_diario': consumo_diario
+                        'percentual': percentual, 'consumo_diario': consumo_diario,
+                        'peso_ideal': peso_ideal, 'diferenca_peso': diferenca_peso,
+                        'peso_abaixo': peso_abaixo
                     }
                 else:
                     acima_do_minimo = False
@@ -59,7 +74,9 @@ def home(request):
                     context = {
                         'usuario': usuario, 'agua': agua,
                         'acima_do_minimo': acima_do_minimo,
-                        'percentual': percentual, 'consumo_diario': consumo_diario
+                        'percentual': percentual, 'consumo_diario': consumo_diario,
+                        'peso_ideal': peso_ideal, 'diferenca_peso': diferenca_peso,
+                        'peso_abaixo': peso_abaixo
                     }
             else:
                 context = {

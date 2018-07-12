@@ -11,33 +11,39 @@
         <p>Seja bem vindo {% if user.is_authenticated %}{{ user.first_name }}{% else %}usuário anônimo{% endif %}</p>
         {% for usuario in usuario %}
             {% if usuario.imc is not None %}
-                {% if usuario.imc < 18.5 %}
-                    <p align="center">IMC {{usuario.imc}} - Abaixo do peso</p>
+                Peso ideal: {{ peso_ideal }} - 
+                {% if peso_abaixo == True %}
+                    Ganhe {{ diferenca_peso }} kg para chegar ao peso perfeito.
+                {% else %}
+                    Perca {{ diferenca_peso }} kg para chegar ao peso perfeito.
+                {% endif %}
+                {% if usuario.imc < 18.6 %}
+                    <p align="center">Seu IMC: {{usuario.imc}} - Abaixo do peso</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-warning" style="width: 10%"></div>
                     </div>
                 {% elif usuario.imc >= 18.6 and usuario.imc <= 24.9 %}
-                    <p align="center">IMC {{usuario.imc}} - Peso ideal</p>
+                    <p align="center">Seu IMC: {{usuario.imc}} - Peso ideal</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 100%"></div>
                     </div>
                 {% elif usuario.imc >= 25.0 and usuario.imc <= 29.9 %}
-                    <p align="center">IMC {{usuario.imc}} - Levemente acima do peso</p>
+                    <p align="center">Seu IMC: {{usuario.imc}} - Levemente acima do peso</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 70%"></div>
                     </div>
                 {% elif usuario.imc >= 30.0 and usuario.imc <= 34.9 %}
-                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 1</p>
+                    <p align="center">Seu IMC: {{usuario.imc}} - Obesidade grau 1</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 80%"></div>
                     </div>
                 {% elif usuario.imc >= 35.0 and usuario.imc <= 39.9 %}
-                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 2 (severa)</p>
+                    <p align="center">Seu IMC: {{usuario.imc}} - Obesidade grau 2 (severa)</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 90%"></div>
                     </div>
                 {% else %}
-                    <p align="center">IMC {{usuario.imc}} - Obesidade grau 3 (mórbida)</p>
+                    <p align="center">Seu IMC: {{usuario.imc}} - Obesidade grau 3 (mórbida)</p>
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 100%"></div>
                     </div>
@@ -47,7 +53,11 @@
             {% endif %}
             {% if usuario.agua is not None %}
                 <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
-                Último consumo {{ consumo_diario }} ml (valor referente ao último dia em que houve registros)
+                {% if consumo_diario == False %}
+                    Sem registros (valor referente ao último dia em que houve registros)
+                {% else %}
+                    Último consumo {{ consumo_diario }} ml (valor referente ao último dia em que houve registros)
+                {% endif %}
                 {% if acima_do_minimo == False %}
                     {% if usuario.agua == usuario.consumo_agua %}
                         <p>Parabéns! Você ja consumiu o minimo de água necessário hoje. <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fa fa-tint"></i></a></p>
