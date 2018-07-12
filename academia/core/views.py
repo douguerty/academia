@@ -205,14 +205,14 @@ def treinamento_edit(request, id=None):
     if request.user.is_authenticated:
         treinamento = models.Registro.objects.get(pk=id)
         if request.method == 'POST':
-            form = forms.TreinamentoForm(request.POST, instance=treinamento)
+            form = forms.TreinamentoForm(request.user, request.POST, instance=treinamento)
 
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(reverse('core:treinamentos'))
             
         else:
-            form = forms.TreinamentoForm(instance=treinamento)
+            form = forms.TreinamentoForm(request.user, instance=treinamento)
 
         return render(request, 'treinamento.html', {'form': form})
     else:
