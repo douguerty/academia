@@ -17,4 +17,5 @@ urlpatterns = [
     path('treinamento/<int:id>/', views.treinamento_edit, name='treinamento_edit'),
     path('consumo_agua/', views.consumo_agua, name='consumo_agua'),
     path('treinamento/delete', views.treinamento_delete, name='treinamento_delete'),
+    path('exercicio/delete', views.exercicio_delete, name='exercicio_delete'),
 ]

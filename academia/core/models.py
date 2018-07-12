@@ -189,3 +189,27 @@ class LogAgua(models.Model):
         ordering = ['data']
         verbose_name = 'Log consumo de agua'
         verbose_name_plural = 'Logs consumo de agua'
+
+
+class LogAguaDiario(models.Model):
+    consumo_agua_dia = models.CharField(
+        verbose_name=_('Consumo de água em ml'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+
+    data = models.DateTimeField()
+
+    usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.consumo_agua_dia
+
+    def __repr__(self):
+        return self.consumo_agua_dia
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Log consumo de agua diario'
+        verbose_name_plural = 'Logs consumo de agua diario'

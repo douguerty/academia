@@ -1,4 +1,4 @@
-from core.models import MyUser, LogAgua
+from core.models import MyUser, LogAgua, LogAguaDiario
 from django.http import HttpResponse
 from datetime import date, datetime, timedelta
 import json
@@ -41,5 +41,46 @@ def ConsumoAgua(id, consumo_agua):
         usuario.update(consumo_agua=consumo_agua_atual)
 
         return True
+    else:
+        return False
+
+
+def GetUltimoLogAgua(id):
+    if id is not None:
+        log = LogAgua.objects.filter(usuario=id).last()
+        if log:
+            return log.data
+        else:
+            return None
+    else:
+        return False
+
+
+def ZeraConsumo(id):
+    if id is not None:
+        usuario = MyUser.objects.filter(pk=id)
+        user = MyUser.objects.get(pk=id)
+        log = LogAgua.objects.filter(usuario=id).last()
+        if log:
+            data = log.data
+        for u in usuario:
+            consumo_diario = float(u.consumo_agua)
+        
+        if consumo_diario > 0:
+            log_diario = LogAguaDiario(consumo_agua_dia=consumo_diario, data=data, usuario=user)
+            log_diario.save()
+        usuario.update(consumo_agua=0)
+        return True
+    else:
+        return False
+
+
+def GetUltimoConsumoDiario(id):
+    if id is not None:
+        log_diario = LogAguaDiario.objects.filter(usuario=id).last()
+        if log_diario:
+            return log_diario.consumo_agua_dia
+        else:
+            return False
     else:
         return False

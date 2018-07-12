@@ -47,6 +47,7 @@
             {% endif %}
             {% if usuario.agua is not None %}
                 <p>Quantidade minima de consumo de água por dia {{ usuario.agua }} ml</p>
+                Último consumo {{ consumo_diario }} ml (valor referente ao último dia em que houve registros)
                 {% if acima_do_minimo == False %}
                     {% if usuario.agua == usuario.consumo_agua %}
                         <p>Parabéns! Você ja consumiu o minimo de água necessário hoje. <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fa fa-tint"></i></a></p>

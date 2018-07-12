@@ -20,10 +20,20 @@ from .forms import CustomUserCreationForm
 
 def home(request):
     if request.user.is_authenticated:
-        d1 = datetime.strptime('2018-07-09', '%Y-%m-%d')
-        d2 = datetime.now()
-        dia = abs(d1-d2).days
-        print(dia)
+        ultima_data = utils_usuario.GetUltimoLogAgua(id=request.user.pk)
+        hoje = datetime.now()
+        consumo_diario = 0
+        if ultima_data:
+            dias = hoje.day-ultima_data.day
+            if dias > 0:
+                update_consumo_agua = utils_usuario.ZeraConsumo(id=request.user.pk)
+
+        consumo_agua_diario = utils_usuario.GetUltimoConsumoDiario(id=request.user.pk)
+        if consumo_agua_diario:
+            consumo_diario = consumo_agua_diario
+        else:
+            consumo_diario = 'Sem consumo anterior'
+
         usuario = utils_usuario.GetUsuario(id=request.user.pk)
         for u in usuario:
             if u.agua is not None:
@@ -40,7 +50,7 @@ def home(request):
                     context = {
                         'usuario': usuario, 'agua': agua,
                         'acima_do_minimo': acima_do_minimo,
-                        'percentual': percentual
+                        'percentual': percentual, 'consumo_diario': consumo_diario
                     }
                 else:
                     acima_do_minimo = False
@@ -49,7 +59,7 @@ def home(request):
                     context = {
                         'usuario': usuario, 'agua': agua,
                         'acima_do_minimo': acima_do_minimo,
-                        'percentual': percentual
+                        'percentual': percentual, 'consumo_diario': consumo_diario
                     }
             else:
                 context = {
@@ -168,6 +178,34 @@ def exercicio_edit(request, id=None):
             form = forms.ExercicioForm(instance=exercicio)
 
         return render(request, 'exercicio.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+@csrf_exempt
+def exercicio_delete(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            id_exercicio = request.POST.get('id', None)
+            usuario = request.user
+
+            delete = utils_exercicio.DeleteExercicio(
+                                id_exercicio=id_exercicio, usuario=usuario
+                            )
+            if delete:
+                retorno = {
+                    'delete': True
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+            else:
+                retorno = {
+                    'delete': False
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
     else:
         return HttpResponseRedirect(reverse('core:home'))
 
