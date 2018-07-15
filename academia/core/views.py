@@ -232,7 +232,6 @@ def treinamento(request):
         if request.method == 'POST':
             form = forms.TreinamentoForm(request.user, request.POST)
             if form.is_valid:
-                form = form.save()
                 form.save()
                 return HttpResponseRedirect(reverse('core:treinamentos'))
         else:
@@ -258,7 +257,7 @@ def treinamentos(request):
 
 def treinamento_edit(request, id=None):
     if request.user.is_authenticated:
-        treinamento = models.Registro.objects.get(pk=id)
+        treinamento = models.Treinamento.objects.get(pk=id)
         if request.method == 'POST':
             form = forms.TreinamentoForm(request.user, request.POST, instance=treinamento)
 
@@ -313,5 +312,12 @@ def consumo_agua(request):
                    return HttpResponseRedirect(reverse('core:home')) 
 
         return render(request, 'consumo_agua.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+def relatorio_agua(request):
+    if request.user.is_authenticated:
+        relatorio_agua = utils_usuario.GetRelatorioAgua(id=request.user.pk)
     else:
         return HttpResponseRedirect(reverse('core:home'))

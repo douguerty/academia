@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import MyUser, Exercicio, Registro, LogAgua
+from .models import MyUser, Exercicio, Treinamento, LogAgua
 from django.conf import settings
 from academia.settings import BASE_DIR
 
@@ -80,14 +80,25 @@ class TreinamentoForm(forms.ModelForm):
         self.fields['exercicio'].queryset = Exercicio.objects.filter(usuario=self.usuario)
 
     def save(self, commit=True):
-        registro = super(TreinamentoForm, self).save(commit=False)
-        registro.usuario = self.usuario
+        treinamento = super(TreinamentoForm, self).save(commit=False)
+        treinamento.usuario = self.usuario
 
         if commit:
-            registro.save()
+            treinamento.save()
         
-        return registro
+        return treinamento
 
+
+    data = forms.DateField(
+        label='',
+        input_formats=["%d/%m/%Y",],
+        widget=forms.DateInput(
+            format="%d/%m/%Y",
+            attrs={
+                'class': 'form-control', 'placeholder': 'Data: dd/mm/aaaa'
+            }
+        )
+    )
 
     exercicio = forms.ModelChoiceField(queryset=Exercicio.objects.all(),
         label='',
@@ -120,7 +131,7 @@ class TreinamentoForm(forms.ModelForm):
         label='',
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control', 'placeholder': 'Tempo gasto por série'
+                'class': 'form-control', 'placeholder': 'Tempo gasto por série em minutos'
             }
         )
     )
@@ -144,8 +155,8 @@ class TreinamentoForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Registro
-        fields = ['exercicio', 'series', 'repeticao', 'tempo', 'distancia', 'peso']
+        model = Treinamento
+        fields = ['data', 'exercicio', 'series', 'repeticao', 'tempo', 'distancia', 'peso']
 
     
 class AguaForm(forms.ModelForm):

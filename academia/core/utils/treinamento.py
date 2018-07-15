@@ -1,9 +1,9 @@
-from core.models import Registro
+from core.models import Treinamento
 from django.http import HttpResponse
 import json
 
 def GetTreinamento(usuario):
-    treinamentos = Registro.objects.filter(usuario=usuario)
+    treinamentos = Treinamento.objects.filter(usuario=usuario).order_by('data')
     if treinamentos:
         return treinamentos
     else:
@@ -11,6 +11,6 @@ def GetTreinamento(usuario):
 
 
 def DeleteTreinamento(id_treinamento, usuario):
-    treinamento = Registro.objects.filter(pk=id_treinamento, usuario=usuario)
+    treinamento = Treinamento.objects.filter(pk=id_treinamento, usuario=usuario)
     treinamento.delete()
     return True

@@ -84,3 +84,10 @@ def GetUltimoConsumoDiario(id):
             return False
     else:
         return False
+
+
+def GetRelatorioAgua(id):
+    if id is not None:
+        relatorio = LogAguaDiario.objects.filter(usuario=id).order_by('-id')
+    else:
+        return False

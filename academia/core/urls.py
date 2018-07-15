@@ -18,4 +18,5 @@ urlpatterns = [
     path('consumo_agua/', views.consumo_agua, name='consumo_agua'),
     path('treinamento/delete', views.treinamento_delete, name='treinamento_delete'),
     path('exercicio/delete', views.exercicio_delete, name='exercicio_delete'),
+    path('relatorio/agua', views.relatorio_agua, name='relatorio_agua'),
 ]

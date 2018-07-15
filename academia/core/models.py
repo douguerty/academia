@@ -118,7 +118,9 @@ class Exercicio(models.Model):
         verbose_name_plural = 'Exercicios'
 
 
-class Registro(models.Model):
+class Treinamento(models.Model):
+    data = models.DateTimeField()
+
     exercicio = models.ForeignKey(
         Exercicio,
         on_delete=models.CASCADE,
@@ -150,10 +152,9 @@ class Registro(models.Model):
         null=True,
         default='-',
     )
-    peso = models.DecimalField(
+    peso = models.CharField(
         verbose_name=_('Peso em kg'),
-        max_digits=7,
-        decimal_places=3,
+        max_length=7,
         blank=True,
         null=True,
         default='-',
@@ -161,10 +162,16 @@ class Registro(models.Model):
 
     usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.usuario.email
+
+    def __repr__(self):
+        return self.usuario.email
+
     class Meta:
         ordering = ['exercicio']
-        verbose_name = 'Exercicio'
-        verbose_name_plural = 'Exercicios'
+        verbose_name = 'Treinamento'
+        verbose_name_plural = 'Treinamentos'
 
 
 class LogAgua(models.Model):

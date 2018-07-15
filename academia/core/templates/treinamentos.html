@@ -22,36 +22,37 @@
                         <th>Distancia</th>
                         <th>Carga</th>
                         <th>Musculo trabalhado</th>
+                        <th>Data do treinamento</th>
                         <th>Ações</th>
                     </tr>
                     {% for treinamento in treinamentos %}
                     <tr>
-                        {% if treinamento.exercicio == '' %}
+                        {% if treinamento.exercicio == '' or treinamento.exercicio is None or treinamento.exercicio == 0 %}
                         <td>-</td>
                         {% else %}
                             <td>{{ treinamento.exercicio }}</td>
                         {% endif %}
-                        {% if treinamento.series == '' %}
+                        {% if treinamento.series == '' or treinamento.series is None or treinamento.exercicio == 0 %}
                             <td>-</td>
                         {% else %}
                             <td>{{ treinamento.series }}</td>
                         {% endif %}
-                        {% if treinamento.repeticao == '' %}
+                        {% if treinamento.repeticao == '' or treinamento.repeticao is None or treinamento.repeticao == 0 %}
                             <td>-</td>
                         {% else %}
                             <td>{{ treinamento.repeticao }}</td>
                         {% endif %}
-                        {% if treinamento.tempo == '' %}
+                        {% if treinamento.tempo == '' or treinamento.tempo is None or treinamento.tempo == 0 %}
                             <td>-</td>
                         {% else %}
                             <td>{{ treinamento.tempo }}</td>
                         {% endif %}
-                        {% if treinamento.distancia == '' %}
+                        {% if treinamento.distancia == '' or treinamento.distancia in None or treinamento.distancia == 0 %}
                             <td>-</td>
                         {% else %}
                             <td>{{ treinamento.distancia }}</td>
                         {% endif %}
-                        {% if treinamento.peso == '' %}
+                        {% if treinamento.peso == '' or treinamento.peso is None or treinamento.peso == 0 %}
                             <td>-</td>
                         {% else %}
                             <td>{{ treinamento.peso }} KG</td>
@@ -75,9 +76,14 @@
                         {% elif treinamento.exercicio.musculo == '9' %}
                             <td>Antebraço</td>
                         {% endif %}
+                        {% if treinamento.data == '' or treinamento.data is None or treinamento.data == 0 %}
+                            <td>-</td>
+                        {% else %}
+                            <td>{{ treinamento.data }}</td>
+                        {% endif %}
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a class="btn btn-sm btn-primary" href="{% url 'core:treinamento_edit' treinamento.pk %}"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'core:treinamento_edit' treinamento.id %}"><i class="fa fa-pencil"></i></a>
                                 <a class="btn-delete btn btn-sm btn-danger" name="{{ treinamento.id }}"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>
