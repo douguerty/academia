@@ -1,5 +1,4 @@
-import re
-import json
+import re, json
 from . import models
 from . import forms
 from datetime import date, datetime, timedelta
