@@ -5,7 +5,10 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MyUser
-        fields = ('__all__')
+        fields = ('id', 'email', 'first_name', 'last_name', 'altura',
+            'peso', 'imc', 'agua', 'consumo_agua', 'nascimento', 'idade',
+            'genero'
+        )
 
 class ExercicioSerializer(serializers.ModelSerializer):
     class Meta:

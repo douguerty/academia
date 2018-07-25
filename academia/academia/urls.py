@@ -20,15 +20,15 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
-router.register('/users', views.UserViewSet)
-router.register('/exercicios', views.ExercicioViewSet)
-router.register('/treinamentos', views.TreinamentoViewSet)
-router.register('/logagua', views.LogAguaViewSet)
-router.register('/logaguadiario', views.LogAguaDiarioViewSet)
+router.register('users', views.UserViewSet)
+router.register('exercicios', views.ExercicioViewSet)
+router.register('treinamentos', views.TreinamentoViewSet)
+router.register('logagua', views.LogAguaViewSet)
+router.register('logaguadiario', views.LogAguaDiarioViewSet)
 
 urlpatterns = [
     path('', include('core.urls', namespace="core")),
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api_auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]
