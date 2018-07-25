@@ -13,6 +13,7 @@ from django.urls import reverse_lazy, reverse
 from .utils import usuario as utils_usuario
 from .utils import exercicio as utils_exercicio
 from .utils import treinamento as utils_treinamento
+from .utils import dashboard as utils_dashboard
 from .forms import CustomUserCreationForm
 
 
@@ -317,5 +318,31 @@ def consumo_agua(request):
 def relatorio_agua(request):
     if request.user.is_authenticated:
         relatorio_agua = utils_usuario.GetRelatorioAgua(id=request.user.pk)
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+@csrf_exempt
+def dashboard(request):
+    if request.user.is_authenticated:
+        usuario = request.user.pk
+        if request.method == 'POST':
+            user = request.POST.get('user', None)
+            dashboard = utils_dashboard.GetDashboard(id=user)
+            if dashboard:
+                return HttpResponse(
+                    json.dumps(dashboard), content_type='application/json'
+                )
+            else:
+                retorno = {
+                    'error': True
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+        context = {
+            'usuario': usuario
+        }
+        return render(request, 'dashboard.html', context)
     else:
         return HttpResponseRedirect(reverse('core:home'))

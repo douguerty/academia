@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading" align="center">
+                <h5>DASHBOARD</h5>
+                <input id="id_usuario" type="hidden" value="{{usuario}}" />
+            </div>
+            <div class="panel-body" align="center">
+                <h5>Informe os períodos</h5>
+                <div id="primeiro-periodo" class="col-md-5">
+                    <!--Diario-->
+                    <div class="form-group col-md-12 diario" align="center">
+                        Dia A
+                        <input id="data-a" type="date" class="data form-control" data-language="pt-BR">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-12" align="center">
+                        <i id="troca-data" class="fa fa-exchange fa-4x"></i>
+                    </div>
+                </div>
+                <div id="segundo-periodo" class="col-md-5">
+                    <!--Diario-->
+                    <div class="form-group col-md-12 diario" align="center">
+                        Dia B
+                        <input id="data-b" type="date" class="data form-control" data-language="pt-BR">
+                    </div>
+                </div>
+                <div id='myChart'></div>
+                <div id='myChart2'></div>
+                <div id='myChart3'></div>
+                <div id='myChart4'></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{% load static %}
+<script src="{% static '/core/js/zingchart.min.js' %}"></script>
+<script src="{% static '/core/js/dashboard.js' %}"></script>
+{% endblock %}
