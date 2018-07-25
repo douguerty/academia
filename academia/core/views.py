@@ -14,7 +14,6 @@ from django.urls import reverse_lazy, reverse
 from .utils import usuario as utils_usuario
 from .utils import exercicio as utils_exercicio
 from .utils import treinamento as utils_treinamento
-
 from .forms import CustomUserCreationForm
 
 
