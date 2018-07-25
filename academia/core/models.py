@@ -119,7 +119,10 @@ class Exercicio(models.Model):
 
 
 class Treinamento(models.Model):
-    data = models.DateTimeField()
+    data = models.CharField(
+        verbose_name=_('Data'),
+        max_length=15,
+    )
 
     exercicio = models.ForeignKey(
         Exercicio,

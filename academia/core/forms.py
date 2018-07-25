@@ -89,13 +89,11 @@ class TreinamentoForm(forms.ModelForm):
         return treinamento
 
 
-    data = forms.DateField(
+    data = forms.CharField(
         label='',
-        input_formats=["%d/%m/%Y",],
-        widget=forms.DateInput(
-            format="%d/%m/%Y",
+        widget=forms.TextInput(
             attrs={
-                'class': 'form-control', 'placeholder': 'Data: dd/mm/aaaa'
+                'class': 'form-control', 'placeholder': 'Data: dd/mm/aaaa', 'type': 'date'
             }
         )
     )

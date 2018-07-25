@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 
 def GetTreinamento(usuario):
-    treinamentos = Treinamento.objects.filter(usuario=usuario).order_by('data')
+    treinamentos = Treinamento.objects.filter(usuario=usuario).order_by('-data')
     if treinamentos:
         return treinamentos
     else:
