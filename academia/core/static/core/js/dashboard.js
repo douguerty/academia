@@ -21,7 +21,7 @@ zingchart.THEME="classic";
         "graphset":[
             {
                 "type":"ring",
-                "background-color":"#282E3D",
+                "background-color":"#fafafa",
                 "tooltip":{
                     "visible":0
                 },
@@ -47,7 +47,7 @@ zingchart.THEME="classic";
                                 "visible":false
                             }
                         ],
-                        "font-color":"#fff",
+                        "font-color":"#000",
                         "font-size":"40px"
                     },
                     "animation":{
@@ -60,14 +60,14 @@ zingchart.THEME="classic";
                 },
                 "series":[
                     {
-                        "values":[25],
+                        "values":[75],
                         "background-color":"#FDFD47",
                         "border-color":"#282E3D",
                         "border-width":"2px",
                         "shadow":0
                     },
                     {
-                        "values":[75],
+                        "values":[25],
                         "background-color":"#35D884",
                         "border-color":"#282E3D",
                         "border-width":"2px",

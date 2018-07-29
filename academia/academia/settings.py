@@ -144,4 +144,5 @@ MUSCULO_CHOICES = (
     (u'7', 'Ombros'),
     (u'8', 'Nádegas'),
     (u'9', 'Antebraço'),
+    (u'10', 'Eretos da espinha'),
 )
