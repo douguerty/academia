@@ -14,6 +14,7 @@ from .utils import usuario as utils_usuario
 from .utils import exercicio as utils_exercicio
 from .utils import treinamento as utils_treinamento
 from .utils import dashboard as utils_dashboard
+from .utils import humor as utils_humor
 from .forms import CustomUserCreationForm
 
 
@@ -318,6 +319,12 @@ def consumo_agua(request):
 def relatorio_agua(request):
     if request.user.is_authenticated:
         relatorio_agua = utils_usuario.GetRelatorioAgua(id=request.user.pk)
+        if relatorio_agua:
+            context = {
+                'relatorio': relatorio_agua
+            }
+            return render(request, 'relatorio_agua.html', context)    
+        return render(request, 'relatorio_agua.html')
     else:
         return HttpResponseRedirect(reverse('core:home'))
 
@@ -325,7 +332,6 @@ def relatorio_agua(request):
 @csrf_exempt
 def dashboard(request):
     if request.user.is_authenticated:
-        usuario = request.user.pk
         if request.method == 'POST':
             user = request.POST.get('user', None)
             dashboard = utils_dashboard.GetDashboard(id=user)
@@ -340,9 +346,34 @@ def dashboard(request):
                 return HttpResponse(
                     json.dumps(retorno), content_type='application/json'
                 )
-        context = {
-            'usuario': usuario
-        }
-        return render(request, 'dashboard.html', context)
+        return render(request, 'dashboard.html')
+    else:
+        return HttpResponseRedirect(reverse('core:home'))
+
+
+@csrf_exempt
+def humor(request):
+    if request.user.is_authenticated:
+        usuario = request.user
+        if request.method == 'POST':
+            user = request.POST.get('usuario', None)
+            humor = request.POST.get('humor', None)
+            data = datetime.now()
+            estado_emocional = utils_humor.SaveHumor(id=usuario, humor=humor, data=data)
+            if estado_emocional:
+                retorno = {
+                    'error': False
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+            else:
+                retorno = {
+                    'error': True
+                }
+                return HttpResponse(
+                    json.dumps(retorno), content_type='application/json'
+                )
+        return render(request, 'humor.html')
     else:
         return HttpResponseRedirect(reverse('core:home'))

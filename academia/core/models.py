@@ -223,3 +223,26 @@ class LogAguaDiario(models.Model):
         ordering = ['id']
         verbose_name = 'Log consumo de agua diario'
         verbose_name_plural = 'Logs consumo de agua diario'
+
+
+class Humor(models.Model):
+    humor = models.CharField(
+        max_length=8,
+        choices=settings.HUMOR_CHOICES,
+        default='1',
+    )
+
+    data = models.DateTimeField()
+
+    usuario = models.name = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.humor
+    
+    def __repr__(self):
+        return self.usuario.first_name
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = 'Registro de humore diario'
+        verbose_name_plural = 'Registros de humores diario'

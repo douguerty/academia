@@ -10,7 +10,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading" align="center">
-                <h5>Exercicios cadastrados {% if exercicios %}<a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fa fa-plus"></i></a>{% endif %}</h5>
+                <h5>Exercicios cadastrados {% if exercicios %}<a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fas fa-plus"></i></a>{% endif %}</h5>
             </div>
             {% if exercicios %}
                 <table class="table">
@@ -45,8 +45,8 @@
                         {% endif %}
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a class="btn btn-sm btn-primary" href="{% url 'core:exercicio_edit' exercicio.pk %}"><i class="fa fa-pencil"></i></a>
-                                <a class="btn-delete btn btn-sm btn-danger" name="{{ exercicio.id }}"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'core:exercicio_edit' exercicio.pk %}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="btn-delete btn btn-sm btn-danger" name="{{ exercicio.id }}"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -54,7 +54,7 @@
                 </table>
             {% else %}
                 <div class="panel-body" align="center">
-                    <h6>Nenhum exercicio cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fa fa-plus"></i></a></h6>
+                    <h6>Nenhum exercicio cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:exercicio' %}"><i class="fas fa-plus"></i></a></h6>
                 </div>
             {% endif %}
         </div>
@@ -79,7 +79,7 @@
                 <button id="btn-nao" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
                 </button>
                 <button id="btn-sim" type="button" class="btn btn-sm btn-success">
-                    <i class="fa fa-check" aria-hidden="true"></i> Sim
+                    <i class="fas fa-check" aria-hidden="true"></i> Sim
                 </button>
             </div>
 

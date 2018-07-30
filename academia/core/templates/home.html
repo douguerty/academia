@@ -65,7 +65,7 @@
                         <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, resta {{ agua }} ml <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-warning"><i class="fa fa-tint"></i></a></p>
                     {% endif %}
                 {% else %}
-                    <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, você ja consumiu {{ agua }} ml acima do minimo necessário hoje <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fa fa-tint"></i></a></p>
+                    <p>Consumido hoje {% if usuario.consumo_agua is not None %}{{ usuario.consumo_agua }}{% else %} 0 {% endif %} ml, você ja consumiu {{ agua }} ml acima do minimo necessário hoje <a href="{% url 'core:consumo_agua' %}" class="btn btn-sm btn-info"><i class="fas fa-tint"></i></a></p>
                 {% endif %}
                 {% if percentual < 40 %}
                     <div class="progress">
@@ -80,7 +80,7 @@
                         <div class="progress-bar progress-bar-info progress-bar-striped" style="width: {{percentual}}%"></div>
                     </div>
                 {% endif %}
-                <p>{{ percentual }}% <i class="fa fa-tint"></i></p>
+                <p>{{ percentual }}% <i class="fas fa-tint"></i></p>
             {% endif %}
         {% endfor %}
     </div>

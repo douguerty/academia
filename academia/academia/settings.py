@@ -146,3 +146,18 @@ MUSCULO_CHOICES = (
     (u'9', 'Antebraço'),
     (u'10', 'Eretos da espinha'),
 )
+
+HUMOR_CHOICES = (
+    (u'1', 'Feliz'),
+    (u'2', 'Muito feliz'),
+    (u'3', 'Chorando de rir'),
+    (u'4', 'Apaixonado'),
+    (u'5', 'Cansado(a)'),
+    (u'6', 'Surpreso(a)'),
+    (u'7', 'Chorando'),
+    (u'8', 'Neutro'),
+    (u'9', 'Raiva'),
+    (u'10', 'Assustado(a)'),
+    (u'11', 'Morto(a)'),
+    (u'12', 'Triste'),
+)

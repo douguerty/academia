@@ -1,38 +1,39 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'core:home' %}">Academia {% if user.is_authenticated %}de {{user.first_name}}{% endif %}</a>
+      <a class="navbar-brand" href="{% url 'core:home' %}">Academia {% if user.is_authenticated %}de {{user.first_name}} <input id="id_usuario" type="hidden" value="{{user.pk}}" /> {% endif %}</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       {% if user.is_authenticated %}
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dumbbell"></i> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'core:exercicio' %}">Cadastrar exercicio</a></li>
-            <li><a href="{% url 'core:exercicios' %}">Lista de exercícios</a></li>
-            <li><a href="{% url 'core:treinamento' %}">Registrar treinamento</a></li>
-            <li><a href="{% url 'core:treinamentos' %}">Treinamentos</a></li>
-            
+            <li><a href="{% url 'core:exercicio' %}"><i class="fas fa-plus"></i> Cadastrar exercicio</a></li>
+            <li><a href="{% url 'core:exercicios' %}"><i class="fas fa-list-ul"></i> Lista de exercícios</a></li>
+            <li><a href="{% url 'core:treinamento' %}"><i class="fas fa-plus"></i> Registrar treinamento</a></li>
+            <li><a href="{% url 'core:treinamentos' %}"><i class="fas fa-clipboard-list"></i> Treinamentos</a></li>
+            <li><a href="{% url 'core:humor' %}"><i class="far fa-grin"></i> Humor</a></li>
+
             <li role="separator" class="divider"></li>
-            <li><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
-            <li><a href="{% url 'core:relatorio_agua' %}">Relatório àgua</a></li>
+            <li><a href="{% url 'core:dashboard' %}"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="{% url 'core:relatorio_agua' %}"><i class="fas fa-tint"></i> Relatório àgua</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sliders-h"></i> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'core:info_pessoal' %}">Informaçoẽs pessoais</a></li>
+            <li><a href="{% url 'core:info_pessoal' %}"><i class="fas fa-user-edit"></i> Informaçoẽs pessoais</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{% url 'core:logout' %}">Sair</a></li>
+            <li><a href="{% url 'core:logout' %}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
           </ul>
         </li>
       </ul>
       {% else %}
       <ul class="nav navbar-nav">
-        <li><a href="{% url 'core:login' %}">Login</a></li>
-        <li><a href="{% url 'core:nova_conta' %}">Criar conta</a></li>
+        <li><a href="{% url 'core:login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="{% url 'core:nova_conta' %}"><i class="fas fa-user-circle"></i> Criar conta</a></li>
       </ul>
       {% endif %}
     </div><!-- /.navbar-collapse -->

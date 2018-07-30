@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Treinamentos{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading" align="center">
+                <h5>Relatório de consumo de àgua</h5>
+            </div>
+            {% if relatorio %}
+                <table class="table">
+                    <tr>
+                        <th>Consumo em ml</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                    {% for r in relatorio %}
+                    <tr>
+                        <td>{{r.consumo_agua}}</td>
+                        <td>{{r.data}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-sm btn-primary" href="#"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="btn-delete btn btn-sm btn-danger" name="{{ treinamento.id }}"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="panel-body" align="center">
+                    <h6>Nenhum treinamento cadastrado <a class="btn btn-sm btn-success" href="{% url 'core:treinamento' %}"><i class="fas fa-plus"></i></a></h6>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div id="modalDelete" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times</span>
+                </button>
+                <h3 id="modal-title" class="modal-title text-center"></h3>
+            </div>
+
+            <div id="modal-body" class="modal-body" align="center"></div>
+            <input type="hidden" id="id-treinamento" />
+
+            <div class="modal-footer">
+                <button id="btn-nao" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                </button>
+                <button id="btn-sim" type="button" class="btn btn-sm btn-success">
+                    <i class="fas fa-check" aria-hidden="true"></i> Sim
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{% load static %}
+<script src="{% static '/core/js/treinamentos.js' %}"></script>
+{% endblock %}
