@@ -358,7 +358,10 @@ def humor(request):
         if request.method == 'POST':
             user = request.POST.get('usuario', None)
             humor = request.POST.get('humor', None)
-            data = datetime.now()
+            data = request.POST.get('data', None)
+            if data == 'None' or data is None:
+                data = datetime.now()
+                
             estado_emocional = utils_humor.SaveHumor(id=usuario, humor=humor, data=data)
             if estado_emocional:
                 retorno = {
