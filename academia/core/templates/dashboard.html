@@ -2,6 +2,11 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static '/core/css/dashboard.css' %}" type="text/css" />
+{% endblock %}
+
 {% block content %}
 
 {% include "navbar.html" %}
@@ -13,29 +18,43 @@
                 <h5>DASHBOARD</h5>
             </div>
             <div class="panel-body" align="center">
-                <h5>Consumo de àgua</h5>
-                <div id='myChart'></div>
-                <div id='myChart2'></div>
-                <div id='myChart3'></div>
-                <div id='myChart4'></div>
-                <h5>Informe os períodos</h5>
-                <div id="primeiro-periodo" class="col-md-5">
-                    <!--Diario-->
-                    <div class="form-group col-md-12 diario" align="center">
-                        Dia A
-                        <input id="data-a" type="date" class="data form-control" data-language="pt-BR">
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li role="presentation" class="active"><a data-toggle="tab" href="#tachometer" role="tab"><i class="fa fa-tachometer-alt"></i></a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#chart-line" role="tab"><i class="fa fa-chart-line"></i></a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="tachometer">
+                        <h5>Consumo de àgua</h5>
+                        <div id='myChart'></div>
+                        <div id='myChart2'></div>
+                        <div id='myChart3'></div>
+                        <div id='myChart4'></div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="col-md-12" align="center">
-                        <i id="troca-data" class="fa fa-exchange fa-4x"></i>
-                    </div>
-                </div>
-                <div id="segundo-periodo" class="col-md-5">
-                    <!--Diario-->
-                    <div class="form-group col-md-12 diario" align="center">
-                        Dia B
-                        <input id="data-b" type="date" class="data form-control" data-language="pt-BR">
+
+                    <div role="tabpanel" class="tab-pane fade" id="chart-line">
+                        <h5>Informe os períodos</h5>
+                        <div id="primeiro-periodo" class="col-md-5">
+                            <!--Diario-->
+                            <div class="form-group col-md-12 diario" align="center">
+                                Dia A
+                                <input id="data-a" type="date" class="data form-control" data-language="pt-BR">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="col-md-12" align="center">
+                                <i id="troca-data" class="fa fa-exchange-alt fa-4x"></i>
+                            </div>
+                        </div>
+                        <div id="segundo-periodo" class="col-md-5">
+                            <!--Diario-->
+                            <div class="form-group col-md-12 diario" align="center">
+                                Dia B
+                                <input id="data-b" type="date" class="data form-control" data-language="pt-BR">
+                            </div>
+                        </div>
+                        <button id="btn-chart" class="btn btn-success"><i class="fa fa-chart-line fa-3x"></i></button>
+                        <button id="btn-loading" class="btn btn-success"><i class="fa fa-spin fa-spinner fa-3x"></i></button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#btn-loading").hide();
     var usuario = $("#id_usuario").val();
     $.ajax({
         url: '.',
@@ -99,7 +100,7 @@ $(document).ready(function() {
                 "font-family":"Arial",
                 "backgroundColor":"#fff",
                 "title":{
-                    "text":"Relção do seu estado emocional",
+                    "text":"Relação do seu estado emocional",
                     "font-family":"Arial",
                     "background-color":"none",
                     "font-color":"#000",
@@ -337,8 +338,46 @@ $(document).ready(function() {
             zingchart.render({ 
                 id : 'myChart2', 
                 data : myConfig2,
-                width: 725
+                width: '90%'
             });
         }
     });
+});
+
+$("#troca-data").on({
+    click: function() {
+        let data_a = $("#data-a").val();
+        let data_b = $("#data-b").val();
+
+        $("#data-a").val(data_b);
+        $("#data-b").val(data_a);
+    }
+});
+
+$("#btn-chart").on({
+    click: function() {
+        var usuario = $("#id_usuario").val();
+        var data_de = $("#data-a").val();
+        var data_ate = $("#data-b").val();
+        $.ajax({
+            url: '.',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                user: usuario,
+                data_de: data_de,
+                data_ate: data_ate,
+                chart: 1
+            },
+        })
+        .done(function() {
+            console.log("success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        }); 
+    }
 });

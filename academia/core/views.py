@@ -334,7 +334,12 @@ def dashboard(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             user = request.POST.get('user', None)
-            dashboard = utils_dashboard.GetDashboard(id=user)
+            chart = request.POST.get('chart', None)
+            data_de = request.POST.get('data_de', None)
+            data_ate = request.POST.get('data_ate', None)
+            dashboard = utils_dashboard.GetDashboard(id=user, chart=chart,
+                                                    data_de=data_de, data_ate=data_ate
+                                                )
             if dashboard:
                 return HttpResponse(
                     json.dumps(dashboard), content_type='application/json'

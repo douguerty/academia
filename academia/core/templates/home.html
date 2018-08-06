@@ -7,7 +7,7 @@
 {% if user.is_authenticated %}
 {% include "navbar.html" %}
 <div class="col-md-8 col-md-offset-2" align="center">
-    <div class="jumbotron">
+    <div class="bs-callout bs-callout-primary">
         <p>Seja bem vindo {% if user.is_authenticated %}{{ user.first_name }}{% else %}usuário anônimo{% endif %}</p>
         {% for usuario in usuario %}
             {% if usuario.imc is not None %}
