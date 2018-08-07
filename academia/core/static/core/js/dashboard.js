@@ -360,7 +360,7 @@ $("#btn-chart").on({
         var data_de = $("#data-a").val();
         var data_ate = $("#data-b").val();
         $.ajax({
-            url: '.',
+            url: 'http://localhost/api/users/1/?format=json',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -368,6 +368,8 @@ $("#btn-chart").on({
                 data_de: data_de,
                 data_ate: data_ate,
                 chart: 1
+            }, success: function(data) {
+                console.log(data);
             },
         })
         .done(function() {
